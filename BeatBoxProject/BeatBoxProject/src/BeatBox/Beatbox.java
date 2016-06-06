@@ -38,10 +38,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-
-
 public class Beatbox implements Serializable{
-
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JFrame theFrame;
 	JPanel mainPanel;
 	JPanel background;
@@ -66,6 +68,7 @@ public class Beatbox implements Serializable{
 	int[] instrumentCodes = {35,42,46,38,49,39,50,60,70,72,64,56,58,47,67,63};
 	
 	static final int beats = 16;
+	public static final String fileNamePattern = "/home/camiel/Desktop/pattern.bbox";
 	
 	public static void main(String[] args) {
 		Beatbox beatbox = new Beatbox();
@@ -365,6 +368,7 @@ public class Beatbox implements Serializable{
 	}
 	
 	public class MySaveListner implements ActionListener {
+
 		public void actionPerformed(ActionEvent a) {
 			
 			boolean[] checkboxState = new boolean[beats*instrumentNames.length];
@@ -375,7 +379,7 @@ public class Beatbox implements Serializable{
 				}
 	    	}
 	    	try {
-	    		FileOutputStream fout = new FileOutputStream("user/patroon.bbox");
+	    		FileOutputStream fout = new FileOutputStream(fileNamePattern);
 	    		ObjectOutputStream oos = new ObjectOutputStream(fout);
 	    		oos.writeObject(checkboxState);
 	    		oos.close();
@@ -393,7 +397,7 @@ public class Beatbox implements Serializable{
 		public void actionPerformed(ActionEvent a) {
 			boolean[] checkboxState = new boolean[beats*instrumentNames.length];
 			try {
-				FileInputStream fin = new FileInputStream("user/patroon.bbox");
+				FileInputStream fin = new FileInputStream(fileNamePattern);
 	    		ObjectInputStream ois = new ObjectInputStream(fin);
 	    		checkboxState = (boolean[]) ois.readObject();
 	    		ois.close();
